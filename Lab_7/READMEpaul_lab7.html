@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>MSBI 32400: Lab 7</title>
+  <meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .w3-panel{
+        font-family: Courier;
+    }
+    .w3-theme-l1 {
+        color:#000 !important;
+        background-color:#cccccc !important;
+    }
+    .w3-theme-l2{
+        color:#800000 !important;
+    }
+</style>
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+    <style type="text/css">
+
+    h1 {
+      font-weight: 300;
+      font-size: 32px;
+      color:  #003DA5;
+      padding: 5px 5px 5px 5px;
+      background: #C8C9C7;
+      border-radius: 5px;
+      border-color: #C8C9C7;
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-size: 20px;
+      color: #800000;
+    }
+
+    h3 {
+      font-weight: 300;
+      font-size: 18px;
+      color: #800000;
+      font-style: italic;
+    }
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+</head>
+<style type="text/css">
+.main-container {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img {
+  box-shadow: 0 4px 8px 0;
+  max-width:100%;
+  height: auto;
+}
+
+body {
+  counter-reset:table figure;
+}
+caption::before{
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+#TOC {border-color: #003DA5;}
+
+.tocify .list-group-item:hover, .tocify .list-group-item:focus {
+    background-color: #C8C9C7;
+}
+
+.tocify .list-group-item.active:hover, .tocify .list-group-item.active:focus {
+    background-color: #003B5C;
+}
+
+.tocify .list-group-item.active, .tocify .list-group-item.active:focus {
+    background-color: #003DA5;
+}
+
+#topbar {
+  height: 100px;
+  margin-top: 26px;
+  background: #003DA5;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#toplogo {
+  box-shadow: none;
+  height: 100px;
+  float: left;
+}
+
+.title {
+  margin-top: 10px;
+  font-size: 36px !important;
+  color:  #003DA5;
+}
+
+
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<body>
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+<div class="fluid-row" id="header">
+
+<div>
+<img src="uchicago.jpg" alt="google.com">
+    <h1 class="title toc-ignore" style="color:#800000;">MSBI 32400: Lab 7</h1>
+    <h3 class="author"><em>Author: Paul Maripadavil</em></h3>
+<h3 class="date">Date Created: 8/2/2017</h3>
+</div>
+<hr>
+<br>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3 style="LINE-HEIGHT:20px">Preparing New Lab Directories </h3>
+    <p class="w3-panel w3-gray w3-round-medium w3-border"> $ cd ~
+  <br>$ mkdir -p /data/lab7/data /data/lab7/doc /data/lab7/bin /data/lab7/results /data/lab7/src
+  <br>$ cd /data/lab7/doc
+  <br>$ mv ~/Downloads/course_files_export.zip .
+  <br>$ touch READMEpaul_lab7.md
+  <br>$ unzip course_files_export.zip
+  <br>
+  >  Archive:  course_files_export.zip <br />
+  >   creating: Lab 7/ <br />
+  >  inflating: Lab 7/MSBI 32400 LAB 7.pdf
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>Download Test Dataset</h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium w3-border">
+      $ cd /data/lab7/data <br />
+      $ wget https://raw.githubusercontent.com/personalis/hgvslib/master<br />/example_test_set/hgvs_test_cases.vcf
+<br />> --2017-08-02 18:58:21--  https://raw.githubusercontent.com/personalis/hgvslib/master<br />/example_test_set/hgvs_test_cases.vcf
+<br />> Resolving raw.githubusercontent.com... 151.101.44.133
+<br />> Connecting to raw.githubusercontent.com|151.101.44.133|:443... connected.
+<br />> HTTP request sent, awaiting response... 200 OK
+<br />> Length: 11005 (11K) [text/plain]
+<br />> Saving to: “hgvs_test_cases.vcf”
+
+<br />> 100%[=========================================================>] 11,005      --.-K/s   in 0.004s
+
+<br />> 2017-08-02 18:58:21 (2.37 MB/s) - “hgvs_test_cases.vcf” saved [11005/11005]
+
+<br />> [student@MSBI32400Lab data]$ head hgvs_test_cases.vcf
+<br />> ##fileformat=VCFv4.1
+<br />> ##FILTER=<ID=PASS,Description="All filters passed">
+<br />> ##fileDate=20150126
+<br />> ##reference=hs37d5
+<br />> ##pipeline_version=DVDS_v1.4.7.2
+<br />> ##resource_version=v1.0.8
+<br />> ##phasing=partial
+<br />> ##source=JenniferYen
+<br />> ##source=SteveChervitz - replaced RefSeq accessions w/ Genbank seq names, sorted using 'bedtools sort -i file.vcf'
+<br />> ##source=DeannaChurch - updated some entries and adding more non-coding variation, added IDs for easier tracking
+<br />>
+<br />>
+<br />> 2017-08-02 18:39:49 (1.01 MB/s) - “hgvs_test_cases.vcf” saved [70418]
+
+</p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>Analyze with snpEff + Clinvar</h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium w3-border">
+      $ java -Xmx4G -jar /data/snpEff/snpEff.jar eff -canon -noLog hg19 hgvs_test_cases.vcf > /data/lab7/results/hgvs_test_cases_snpEff.vcf
+<br />$ java -Xmx4G -jar /data/snpEff/SnpSift.jar annotate -noLog /data/snpEff/data/hg19/clinvar/clinvar_20170705.vcf.gz /data/lab7/results/hgvs_test_cases_snpEff.vcf > /data/lab7/results/hgvs_test_cases_snpEff.clinvar.vcf
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Extract data from VCF using SnpSift
+    </h3>
+    <p  class="w3-panel w3-theme-l1 w3-round-medium">
+      $ java -Xmx4G -jar /data/snpEff/snpEff.jar eff -canon -noLog hg19 hgvs_test_cases.vcf > /data/lab7/results/hgvs_test_cases_snpEff.vcf
+<br />$ java -Xmx4G -jar /data/snpEff/SnpSift.jar annotate -noLog /data/snpEff/data/hg19/clinvar/clinvar_20170705.vcf.gz /data/lab7/results/hgvs_test_cases_snpEff.vcf > /data/lab7/results/hgvs_test_cases_snpEff.clinvar.vcf
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Extract data from VCF using SnpSift
+    </h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium">
+      $ java -Xmx4G -jar /data/snpEff/SnpSift.jar extractFields -s ',' -e '.' /data/lab7/results/hgvs_test_cases_snpEff.clinvar.vcf CHROM POS REF ALT ID "ANN[*].ALLELE" "ANN[*].EFFECT" "ANN[*].IMPACT" "ANN[*].GENE" "ANN[*].FEATURE" "ANN[*].FEATUREID" "ANN[*].BIOTYPE" "ANN[*].RANK" "ANN[*].HGVS_C" "ANN[*].HGVS_P" CLNHGVS CLNALLE CLNACC CLNSIG CLNREVSTAT CLNDBN > /data/lab7/results/hgvs_test_cases_snpEff.clinvar.Extracted
+
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Results
+    </h3>
+    <p class="w3-panel w3-round-medium">
+      Annonation comparsions:
+<br />      Chr 1, Position: 5935162
+<br />
+<br />      snpEff.clinvar.Extracted-  ANN[*].HGVS_P : c.2818-2T>A
+<br />      wANNOVAR- GeneDetail.refgene: NM_001291594:exon17:c.1282-2T>A
+<br />      VEP.ensembl-    HGVSc	HGVSp	cDNA_position: all NA
+<br />      SeattleSeqAnnotation- proteinPosition: NA   cDNAPosition: NA
+<br />                            unknownHeader: T=10841/A=2017
+<br />
+<br />      Chr1 Position:169519049
+<br />      snpEff.clinvar.Extracted- ANN[*].HGVS_P : 0 ANN[*].HGVS_C: 0
+<br />      wANNOVAR- AAChange.refgene: F5:NM_000130:exon10:c.A1601A:p.Q534Q
+<br />      VEP.ensembl- Not Found
+<br />      SeattleSeqAnnotation- proteinPosition: 534/2225   cDNAPosition: 1601
+<br />      		      unknownHeader: C=12728/T=278
+</p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Commentary
+    </h3>
+    <p class="w3-panel w3-round-small">
+      Not all SNPs are represented in each of the databases.
+      Also, they do not share the same annotation. It looks
+      that only Clinvar and wANNOVAR gives annotation that
+      follow the nomenclature advised by the Human Genome
+      Variation Society. wANNOVAR also uses some identification
+      from Clinvar. Ensembi has columns for HGVS, but only in
+      position and not the change of the variant. Ensembi did
+      not have the variants for the two examples that I choose.
+    </p>
+</div>
+</body>
+</html>

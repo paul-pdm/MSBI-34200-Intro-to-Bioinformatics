@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>MSBI 32400: Lab 6</title>
+  <meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .w3-panel{
+        font-family: Courier;
+    }
+    .w3-theme-l1 {
+        color:#000 !important;
+        background-color:#cccccc !important;
+    }
+    .w3-theme-l2{
+        color:#800000 !important;
+    }
+</style>
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+    <style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+</head>
+<style type="text/css">
+.main-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<body>
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+<div class="fluid-row" id="header">
+
+<div>
+<img src="uchicago.jpg" alt="google.com">
+    <h1 class="title toc-ignore" style="color:#800000;">MSBI 32400: Lab 6</h1>
+    <h3 class="author"><em>Author: Paul Maripadavil</em></h3>
+<h4 class="date">Date Created: 7/26/2017</h4>
+</div>
+<hr>
+<br>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3 style="LINE-HEIGHT:20px">Creating directories for the new lab</h3>
+    <h5 style="LINE-HEIGHT:20px">*Add documents to run lab and document protocol</h5>
+    <p class="w3-panel w3-gray w3-round-medium w3-border"> $ cd ~
+  <br>$ mkdir -p /data/lab6/data /data/lab6/doc /data/lab6/bin /data/lab6/results /data/lab6/src
+  <br>$ cd /data/lab6/doc
+  <br>$ mv ~/Downloads/MSBI\ 32400\ LAB\ 6\ 072617.pdf .
+  <br>$ cd /data/lab6/doc
+  <br>$ touch READMEpaul_lab6.md
+  <br>$ cd /data/lab6/data
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>Using samtools to create our fastq file from the sample bam file</h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium w3-border">
+        $ samtools fastq -t /data/bds-files/chapter-11-alignment/NA12891_CEU_sample.bam > NA12891_CEU_sample.fastq<br>
+        > M::bam2fq_mainloop] processed 636207 reads</p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>Download the reference chromosome from the reference genome hg19
+        and then extracted using gunzip</h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium w3-border">
+      $ wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/chromosomes/chr1.fa.gz
+  <br>$ gunzip chr1.fa.gz
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        First we index our reference chromosome
+    </h3>
+    <p  class="w3-panel w3-theme-l1 w3-round-medium">$ bwa index -a bwtsw chr1.fa<br>
+
+> [bwa_index] Pack FASTA... 2.41 sec<br>
+> [bwa_index] Construct BWT for the packed sequence...<br>
+> [BWTIncCreate] textLength=498501242, availableWord=47075968<br>
+> [BWTIncConstructFromPacked] 10 iterations done. 76384698 characters processed.<br>
+> [BWTIncConstructFromPacked] 20 iterations done. 142334426 characters processed.<br>
+> [BWTIncConstructFromPacked] 30 iterations done. 200946714 characters processed.<br>
+> [BWTIncConstructFromPacked] 40 iterations done. 253037450 characters processed.<br>
+> [BWTIncConstructFromPacked] 50 iterations done. 299331834 characters processed.<br>
+> [BWTIncConstructFromPacked] 60 iterations done. 340474362 characters processed.<br>
+> [BWTIncConstructFromPacked] 70 iterations done. 377037946 characters processed.<br>
+> [BWTIncConstructFromPacked] 80 iterations done. 409531690 characters processed.<br>
+> [BWTIncConstructFromPacked] 90 iterations done. 438408170 characters processed.<br>
+> [BWTIncConstructFromPacked] 100 iterations done. 464069642 characters processed.<br>
+> [BWTIncConstructFromPacked] 110 iterations done. 486873562 characters processed.<br>
+> [bwt_gen] Finished constructing BWT in 116 iterations.<br>
+> [bwa_index] 209.36 seconds elapse.<br>
+> [bwa_index] Update BWT... 1.72 sec<br>
+> [bwa_index] Pack forward-only FASTA... 1.40 sec<br>
+> [bwa_index] Construct SA from BWT and Occ... 65.18 sec<br>
+> [main] Version: 0.7.15-r1140<br>
+> [main] CMD: bwa index -a bwtsw chr1.fa<br>
+> [main] Real time: 282.977 sec; CPU: 280.083 sec<br>
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Now we begin the aliment of our sample fastq file with our reference chromosome and output a sam file
+    </h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium">
+        $ bwa mem -R '@RG\tID:MSBI32400_test\tSM:NA12891_CEU_sample' chr1.fa NA12891_CEU_sample.fastq > NA12891_CEU_sample.sam
+<br>> [M::bwa_idx_load_from_disk] read 0 ALT contigs
+<br>> [M::process] read 220562 sequences (10000064 bp)...
+<br>> [M::process] read 220174 sequences (10000023 bp)...
+<br>> [M::mem_process_seqs] Processed 220562 reads in 15.376 CPU sec, 15.710 real sec
+<br>> [M::process] read 195471 sequences (8866380 bp)...
+<br>> [M::mem_process_seqs] Processed 220174 reads in 15.517 CPU sec, 15.701 real sec
+<br>> [M::mem_process_seqs] Processed 195471 reads in 9.833 CPU sec, 9.934 real sec
+<br>> [main] Version: 0.7.15-r1140
+<br>> [main] CMD: bwa mem -R @RG\tID:MSBI32400_test\tSM:NA12891_CEU_sample chr1.fa NA12891_CEU_sample.fastq
+<br>> [main] Real time: 42.238 sec; CPU: 41.615 sec
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Now we index chromosome 1 using samtools
+    </h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium">$ time samtools faidx chr1.fa</p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Converting SAM to BAM
+    </h3>
+    <p class="w3-panel w3-theme-l1 w3-round-small">
+       $ samtools view -bt chr1.fa.fai NA12891_CEU_sample.sam > NA12891_CEU_sample.bam <br>
+       $ samtools sort -o NA12891_CEU_sample_sorted.bam NA12891_CEU_sample.bam<br>
+       $ samtools index NA12891_CEU_sample_sorted.bam
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+View header of new sorted BAM
+    </h3>
+    <p  class="w3-panel w3-theme-l1 w3-round-medium">
+       $ samtools view -H NA12891_CEU_sample_sorted.bam
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+Looking up bcftools syntax
+    </h3>
+    <p>
+
+        <pre class="w3-panel w3-theme-l1 w3-round-medium">
+$ bcftools
+
+Program: bcftools (Tools for variant calling and manipulating VCFs and BCFs)
+Version: 1.4.1 (using htslib 1.4.1)
+
+Usage:   bcftools [--version|--version-only] [--help] <command> <argument>
+
+Commands:
+
+ -- Indexing
+    index        index VCF/BCF files
+
+ -- VCF/BCF manipulation
+    annotate     annotate and edit VCF/BCF files
+    concat       concatenate VCF/BCF files from the same set of samples
+    convert      convert VCF/BCF files to different formats and back
+    isec         intersections of VCF/BCF files
+    merge        merge VCF/BCF files files from non-overlapping sample sets
+    norm         left-align and normalize indels
+    plugin       user-defined plugins
+    query        transform VCF/BCF into user-defined formats
+    reheader     modify VCF/BCF header, change sample names
+    view         VCF/BCF conversion, view, subset and filter VCF/BCF files
+
+ -- VCF/BCF analysis
+    call         SNP/indel calling
+    consensus    create consensus sequence by applying VCF variants
+    cnv          HMM CNV calling
+    csq          call variation consequences
+    filter       filter VCF/BCF files using fixed thresholds
+    gtcheck      check sample concordance, detect sample swaps and contamination
+    mpileup      multi-way pileup producing genotype likelihoods
+    roh          identify runs of autozygosity (HMM)
+    stats        produce VCF/BCF stats
+
+ Most commands accept VCF, bgzipped VCF, and BCF with the file type detected
+ automatically even when streaming from a pipe. Indexed VCF and BCF will work
+ in all situations. Un-indexed VCF and BCF and streams will work in most but
+ not all situations.
+
+
+</pre>
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Generate mpileup & Run bcftools
+    </h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium">
+      $ samtools mpileup -uf chr1.fa NA12891_CEU_sample_sorted.bam | bcftools call -mv > NA12891_CEU_sample_sorted_var.raw.vcf <br><br>
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files<br>
+&lt;mpileup&gt; Set max per-file depth to 8000 <br>
+$ bcftools filter -s LowQual -e &quot;%QUAL<20&quot; NA12891_CEU_sample_sorted_var.raw.vcf > NA12891_CEU_sample_sorted_var.flt.vcf
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Find the variants in final
+    </h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium">
+       $ grep -v '^#' NA12891_CEU_sample_sorted_var.flt.vcf | wc -l
+    <br>> 756
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Find the number of variants with PASS
+    </h3>
+    <p class="w3-panel w3-theme-l1 w3-round-medium">
+       $ grep -v '^#' NA12891_CEU_sample_sorted_var.flt.vcf | grep 'PASS' | wc -l
+    <br>> 699</code></p>
+</div>
+<div class="w3-card-4 w3-panel w3-rightbar w3-bottombar w3-hover-border-green">
+    <h3>Find Exon 64, Record Coordinates, and Amino Acid #</h3>
+    <p  style="text-align: center;"
+            class="w3-panel w3-theme-l1 w3-round-medium w3-hover-teal">
+   chr1:215,844,373 <br>
+   Amino Acid # 4692
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-topbar w3-bottombar w3-rightbar w3-leftbar w3-hover-border-green">
+    <h3>Location of Exon 64 in IGV</h3>
+<img src="Lab_6.jpg" alt="google.com" width="1280" height="800">
+</div>
+</body>
+</html>

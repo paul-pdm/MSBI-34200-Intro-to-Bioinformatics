@@ -1,0 +1,17 @@
+Torrent_Suite=4.2.1
+host=CQ7LPW1
+ion-analysis=4.2.18-1
+ion-chefupdates=4.2.0
+ion-dbreports=4.2.22-1
+ion-docs=4.2.1-1
+ion-gpu=4.2.2-1
+ion-onetouchupdater=4.2.1-1
+ion-pgmupdates=4.2.3
+ion-pipeline=4.2.12-1
+ion-plugins=4.2.28-1
+ion-publishers=4.2.1-1
+ion-referencelibrary=2.2.0
+ion-rsmts=4.2.2-1
+ion-sampledata=1.2-0
+ion-torrentr=4.2.1-1
+ion-tsconfig=4.2.6-1

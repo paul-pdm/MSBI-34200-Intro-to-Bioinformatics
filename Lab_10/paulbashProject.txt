@@ -1,0 +1,33 @@
+[M::bam2fq_mainloop] processed 636207 reads
+[bwa_index] Pack FASTA... 2.11 sec
+[bwa_index] Construct BWT for the packed sequence...
+[BWTIncCreate] textLength=498501242, availableWord=47075968
+[BWTIncConstructFromPacked] 10 iterations done. 76384698 characters processed.
+[BWTIncConstructFromPacked] 20 iterations done. 142334426 characters processed.
+[BWTIncConstructFromPacked] 30 iterations done. 200946714 characters processed.
+[BWTIncConstructFromPacked] 40 iterations done. 253037450 characters processed.
+[BWTIncConstructFromPacked] 50 iterations done. 299331834 characters processed.
+[BWTIncConstructFromPacked] 60 iterations done. 340474362 characters processed.
+[BWTIncConstructFromPacked] 70 iterations done. 377037946 characters processed.
+[BWTIncConstructFromPacked] 80 iterations done. 409531690 characters processed.
+[BWTIncConstructFromPacked] 90 iterations done. 438408170 characters processed.
+[BWTIncConstructFromPacked] 100 iterations done. 464069642 characters processed.
+[BWTIncConstructFromPacked] 110 iterations done. 486873562 characters processed.
+[bwa_index] 195.05 seconds elapse.
+[bwa_index] Update BWT... 1.49 sec
+[bwa_index] Pack forward-only FASTA... 1.20 sec
+[bwa_index] Construct SA from BWT and Occ... 63.39 sec
+[bwt_gen] Finished constructing BWT in 116 iterations.
+[main] Version: 0.7.15-r1140
+[main] CMD: bwa index -a bwtsw chr1.fa
+[main] Real time: 267.526 sec; CPU: 263.261 sec
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 220562 sequences (10000064 bp)...
+[M::process] read 220174 sequences (10000023 bp)...
+[M::mem_process_seqs] Processed 220562 reads in 14.532 CPU sec, 14.834 real sec
+[M::process] read 195471 sequences (8866380 bp)...
+[M::mem_process_seqs] Processed 220174 reads in 15.242 CPU sec, 15.341 real sec
+[M::mem_process_seqs] Processed 195471 reads in 10.258 CPU sec, 10.424 real sec
+[main] Version: 0.7.15-r1140
+[main] CMD: bwa mem -R @RG\tID:MSBI32400_test\tSM:NA12891_CEU_sample chr1.fa NA12891_CEU_sample.bam.fastq
+[main] Real time: 41.058 sec; CPU: 40.474 sec

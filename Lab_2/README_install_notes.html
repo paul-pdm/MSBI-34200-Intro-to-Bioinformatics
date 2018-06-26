@@ -1,0 +1,88 @@
+
+<!-- saved from url=(0077)file:///Users/lhelseth/Dropbox/UofC%20Class%20Notes/README_install_notes.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"></head><body><h3 id="installing-bioinformatics-software-for-virtual-machine">Installing bioinformatics software for Virtual Machine</h3>
+<h4 id="december-22-2016">December 22, 2016</h4>
+<p>As <strong><em>student</em></strong>:</p>
+<ul>
+<li>Installed IGV_2.3.88 in /home/student directory, and added a Launcher on /home/student/Desktop pointing to igv.sh</li>
+</ul>
+<p>As <strong><em>root</em></strong>:</p>
+<ul>
+<li>Installed samtools 1.3.1<br></li>
+<li>yum install ncurses-devel</li>
+<li><p>yum install zlib-devel ./configure make make install</p></li>
+<li>Installed htslib 1.3.2</li>
+<li>bunzip2 htslib-1.3.2.tar.bz2</li>
+<li>tar -xvf htslib-1.3.2.tar</li>
+<li>cd htslib-1.3.2</li>
+<li>./configure</li>
+<li>make</li>
+<li><p>make install</p></li>
+<li>Installing bcftools 1.3.1</li>
+<li>tar -xvf bcftools-1.3.1.tar</li>
+<li>cd bcftools-1.3.1</li>
+<li>less INSTALL (no configure needed)</li>
+<li><p>make install</p></li>
+<li>Installing bwa 0.7.15</li>
+<li>bunzip2 bwa-0.7.15.tar.bz2</li>
+<li>tar -xvf bwa-0.7.15.tar</li>
+<li>cd bwa-0.7.15</li>
+<li>less README.md</li>
+<li>make</li>
+<li><p>cp bwa /usr/local/bin</p></li>
+<li>Installing Pandoc</li>
+<li>wget http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</li>
+<li>rpm -ivh epel-release-6-8.noarch.rpm</li>
+<li>yum install pandoc</li>
+<li>vi README.md</li>
+<li><code>pandoc -r markdown -w html README.md &gt; README.html</code></li>
+<li><p>firefox README.html</p></li>
+<li>Installing R 3.3.2</li>
+<li><p>yum install R --nogpgcheck (from epel)</p></li>
+</ul>
+<h4 id="documenting-everything">Documenting everything</h4>
+<ul>
+<li>history &gt; README_install_notes.md</li>
+</ul>
+<hr>
+<h4 id="installing-bioinformatics-data-skills-files">Installing Bioinformatics Data Skills files</h4>
+<ul>
+<li><p>As <strong><em>root</em></strong>, created /data folder and grant rights to student user</p></li>
+<li><p>As <strong><em>student</em></strong>, <code>cd /data</code></p></li>
+<li><p>Download all files for each chapter from GitHub: <code>git clone https://github.com/vsbuffalo/bds-files.git</code></p></li>
+<li><p>Noticed the sample BAM file was missing an index file, so <code>samtools index bds-files/chapter-11-alignment/NA12891_CEU_sample.bam</code></p></li>
+<li><p>Opened sample BAM and VCF file in IGV and save as XML file as /home/student/igv_session.xml</p></li>
+<li><p>Launch IGV from Desktop, then Open Session and choose igv_session.xml to view preselected area</p></li>
+</ul>
+<hr>
+<h4 id="installing-custom-annotation-tools">Installing custom annotation tools</h4>
+<p>As <strong><em>student</em></strong></p>
+<ul>
+<li><p>Download snpEff_v4_3i_core.zip from https://sourceforge.net/projects/snpeff/</p></li>
+<li><p>Install in /data/snpEff by running <code>unzip ~/Downloads/snpEff_latest_core.zip</code></p></li>
+<li><p>Use <code>java -jar snpEff.jar download hg19</code> to download RefSeq annotation.</p></li>
+<li><p>Stack heap error, so download v4_3 hg19 database directly from SourceForge and unpack into /data/snpEff/data/hg19</p></li>
+<li><p>Install BLAST+ from NCBI via <code>ftp ftp.ncbi.nlm.nih.gov</code> and following instructions at https://www.ncbi.nlm.nih.gov/books/NBK52640/#<em>chapter1_Installation</em></p></li>
+<li><p>From /data <code>tar -zxvf ~/Downloads/ncbi-blast-2.5.0+-x64-linux.tar.gz</code></p></li>
+</ul>
+<h4 id="installing-python-3.3-in-usrlocalbin">Installing Python 3.3 in /usr/local/bin</h4>
+<p>As <strong><em>root</em></strong></p>
+<ul>
+<li><p>Followed instructions from http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/</p></li>
+<li><p>wget https://bootstrap.pypa.io/ez_setup.py</p></li>
+<li><p>Install as <strong><em>root</em></strong> in /data/BioPython virtualenv</p></li>
+<li><p>Installed ez_setup.py, then installed pip. Used pip to install biopython, numpy, matplot lib etc. as <strong><em>root</em></strong>:</p></li>
+</ul>
+<pre><code>biopython (1.68)
+cycler (0.10.0)
+matplotlib (1.5.3)
+numpy (1.11.3)
+pip (9.0.1)
+pyparsing (2.1.10)
+python-dateutil (2.6.0)
+pytz (2016.10)
+setuptools (32.2.0)
+six (1.10.0)</code></pre>
+<hr>
+<p><strong>Larry Helseth, December 22, 2016</strong></p>
+</body></html>

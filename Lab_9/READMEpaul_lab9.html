@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>MSBI 32400: Lab 9</title>
+  <meta charset="UTF-8">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .w3-panel{
+        font-family: Courier;
+    }
+    .w3-theme-l1 {
+        color:#000 !important;
+        background-color:#cccccc !important;
+    }
+    .w3-theme-l2{
+        color:#800000 !important;
+    }
+</style>
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+    <style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+<style type="text/css">
+.main-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+</head>
+<style type="text/css">
+.main-container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<body>
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+<div class="fluid-row" id="header">
+
+<div>
+<img src="uchicago.jpg" alt="google.com">
+    <h1 class="title toc-ignore" style="color:#800000;">MSBI 32400: Lab 9</h1>
+    <h3 class="author"><em>Author: Paul Maripadavil</em></h3>
+<h4 class="date">Date Created: 8/16/2017</h4>
+</div>
+<hr>
+<br>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+  <h3 style="LINE-HEIGHT:20px">Preparing New Lab Directories</h3>
+  <p class="w3-panel w3-gray w3-round-medium w3-border">
+$ cd~ $ mkdir -p /data/lab9/data /data/lab9/doc /data/lab9/bin /data/lab9/results /data/lab9/src <br />
+$ cd /data/lab9/doc <br />
+$ mv ~/Downloads/course_files_export.zip .
+  </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+  <h3 style="LINE-HEIGHT:20px">Preparing Lab Documents</h3>
+<p class="w3-panel w3-gray w3-round-medium w3-border">
+$ touch READMEpaul_lab9.md <br />
+$ mv ~/Downloads/course_files_export.zip . <br />
+$ unzip course_files_export.zip <br />
+</p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>Copying the Buffalo template.sh</h3>
+    <p class="w3-panel w3-gray w3-round-medium w3-border">
+$ cd /data/bin/<br />$ cp /data/bds-files/chapter-12-pipelines/template.sh . </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>Find some WebDocuments</h3>
+    <p class="w3-panel w3-gray w3-round-medium w3-border">
+        $ cd /data $ find . -name &quot;WebDocument*&quot; -print | xargs ls -lh &gt; <br />
+       -rw-rw-r--. 1 student student 3.1K Jul 5 19:29 ./lab3/data/WebDocument_9-05_101AutismPanel.bed.txt &gt;<br />
+       -rw-rw-r--. 1 student student 3.0M Jul 5 19:30 ./lab3/data/WebDocument_9-7_mysample1.bai &gt;<br />
+       -rw-rw-r--. 1 student student 326M Jul 5 19:40 ./lab3/data/WebDocument_9-7_mysample1.bam &gt;<br />
+       -rw-rw-r--. 1 student student 327M Jul 11 23:46 ./lab3/data/WebDocument_9-7_mysample1_file_sorted.bam &gt;<br />
+       -rw-rw-r--. 1 student student 3.0M Jul 11 23:48 ./lab3/data/WebDocument_9-7_mysample1_file_sorted.bam.bai &gt;<br />
+       -rw-rw-r--. 1 student student 1.6G Jul 11 23:41 ./lab3/data/WebDocument_9-7_mysample1.sam
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        More bash exercises
+    </h3>
+      <p class="w3-panel w3-gray w3-round-medium w3-border">
+          $ cd lab9/data/<br />
+          $ touch nothing.temp.fastq<br />
+          $ touch something.temp.fastq<br />
+          $ cp /data/lab9/bin/template.sh .<br />
+          $ find . -name &quot;*temp.fastq&quot; | xargs -n 1 echo 'rm -i' &gt; delete-temp.sh<br />
+          $ bash delete-temp.sh &gt;<br />
+          > rm: remove regular empty file ./nothing.temp.fastq'? y <br />
+          > rm: remove regular empty file. /something.temp.fastq'? y
+      </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Find all data directories in /data
+    </h3>
+    <p class="w3-panel w3-gray w3-round-medium w3-border">
+       $ find . -name &quot;data&quot; -type d<br />
+       > ./lab4/data<br />
+       > ./lab6/data<br />
+       > ./lab3/data<br />
+       > ./lab3/data/bedtools2/data<br />
+       > ./BioPython/lib/python3.3/site-packages/numpy/core/tests/data<br />
+       > ./BioPython/lib/python3.3/site-packages/numpy/lib/tests/data<br />
+       > ./BioPython/lib/python3.3/site-packages/Bio/PopGen/SimCoal/data<br />
+       > ./lab5/data<br />
+       > ./lab8/data<br />
+       > ./bds-files/chapter-08-r/motif-example/data ./snpEff/data<br />
+       > ./lab9/data<br />
+       > ./lab7/data
+    </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+        Find all file modified within the past 14 days and find file size
+    </h3>
+    <p class="w3-panel w3-gray w3-round-medium w3-border">
+    $ find -type f -mtime -14 | xargs ls -lh<br />
+    -rw-r--r--. 1 student student 388 Aug 9 23:11<br />
+    ./lab8/data/pevsner_chr20_3_problem.sh -rw-rw-r--. 1 student student 3.6K Aug 16 17:21<br />
+    ./lab8/doc/READMEpaul_lab8.md -rw-rw-r--. 1 student student 170 Aug 9 20:29<br />
+    ./lab8/results/genes_by_chr.txt -rw-rw-r--. 1 student student 6.3K Aug 9 19:58<br />
+    ./lab8/results/snpEff_genes.txt -rw-rw-r--. 1 student student 361K Aug 9 19:58<br />
+    ./lab8/results/snpEff_summary.html -rw-rw-r--. 1 student student 13M Aug 9 20:00<br />
+    ./lab8/results/TSVC_variants.snpEff.clinvar.vcf -rw-rw-r--. 1 student student 12M Aug 9 19:58<br />
+    ./lab8/results/TSVC_variants.snpEff.vcf -rw-rw-r--. 1 student student 43 Aug 16 18:45<br />
+    ./lab9/bin/template.sh -rw-rw-r--. 1 student student 56 Aug 16 19:59<br />
+    ./lab9/data/delete-temp.sh -rw-rw-r--. 1 student student 43 Aug 16 19:47<br />
+    ./lab9/data/template.sh -rw-rw-r--. 1 student student 448 Aug 16 18:46<br />
+    ./lab9/doc/READMEpaul_lab8.md -rw-r--r--. 1 student student 12K Aug 16 20:21<br />
+    ./lab9/doc/.READMEpaul_lab8.md.swp </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+       Using cBioPortal for find gene that cause Glioblastoma
+    </h3>
+    <p>Glioblastoma (TCGA, Nature 2008)<br />
+       Gene: TP53<br />
+       Drug Name: SCH-529074<br/>
+       Number of Genes Targeted: 1
+   </p>
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>OncoPrint for Glioblastoma</h3>
+    <img src="GlioPrint.png" alt="google.com" width="1280" height="800">
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>MutationMapper for Glioblastoma</h3>
+    <img src="GlioMap.png" alt="google.com" width="1280" height="800">
+</div>
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>
+      Using cBioPortal for find gene that cause Prostate Adenocarinoma
+    </h3>
+
+  <p>
+      Prostate Adenocarcinoma (MSKCC, Cancer Cell 2010)<br/>
+      Gene: Gene Symbol: AR Description: androgen receptor<br/>
+      Drug Name: NANDROLONE<br/>
+      Number of Genes Targeted: 1
+   </p>
+</div>
+
+<div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>OncoPrint for Prostate Adenocarcinoma</h3>
+    <img src="ProstratePrint.png" alt="google.com" width="1280" height="800">
+  </div>
+  <div class="w3-card-4 w3-panel w3-leftbar w3-hover-border-green">
+    <h3>MutationMapper for Prostate Adenocarcinoma</h3>
+    <img src="ProstrateMap.png" alt="google.com" width="1280" height="800">
+</div>
+
+
+
+</body>
+</html>
